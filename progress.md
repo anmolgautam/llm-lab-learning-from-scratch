@@ -8,22 +8,18 @@ Instructor guide: [`instructor.md`](/Users/anmolgautam/Documents/learning/llm-la
 ## Current State
 
 ```text
-Current phase: Phase 0 - Orientation And Setup
-Current lesson: lesson_00_orientation
-Current lab: none
-Status: curriculum revised; scaffold lessons/lab before starting Phase 1
+Current phase: Phase 1 - Next-Token Prediction
+Current lesson: lesson_01_next_token_prediction
+Current lab: week_01_minigpt (scaffold only)
+Status: scaffold complete; teaching Phase 1 (next-token prediction)
 Last updated: 2026-05-22
 ```
 
 ## Active Next Action
 
-Create the initial lesson and lab scaffolds:
-
-- `lessons/lesson_00_orientation/`
-- `lessons/lesson_01_next_token_prediction/`
-- `labs/week_01_minigpt/`
-- `reports/`
-- `runs/`
+Work through Lesson 01 (next-token prediction): intuition → cross-entropy → tensor
+shapes → one loss by hand → notebook checks. Fill the notes in
+`lessons/lesson_01_next_token_prediction/` and tick its `checks.md`.
 
 ## Completion Standard
 
@@ -41,8 +37,8 @@ A module is complete only when all conditions are met:
 
 | Phase | Module | Runs on | Status | Evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 0 | Orientation And Setup | local | in progress | `curriculum.md`, `instructor.md`, `progress.md` | Scaffold lessons and lab next |
-| 1 | Next-Token Prediction | local (MPS) | not started | none | Start after orientation |
+| 0 | Orientation And Setup | local | complete | repo scaffold: `lessons/`, `labs/week_01_minigpt/`, `reports/`, `runs/` | Lesson/lab folders scaffolded 2026-05-22 |
+| 1 | Next-Token Prediction | local (MPS) | in progress | `lessons/lesson_01_next_token_prediction/` (scaffold) | Teaching now |
 | 2 | Minimal Character-Level GPT | local (MPS) | not started | none | First lab |
 | 3 | Serious Training Loop | local (MPS) | not started | none | Requires mini GPT |
 | 4 | Data Pipeline And Tokenizer | local (MPS) | not started | none | Requires basic training loop |
@@ -159,6 +155,20 @@ Decisions:
 Next:
 
 - scaffold Lesson 00, Lesson 01, Week 01 lab, `reports/`, and `runs/`, then begin Phase 1 with a just-in-time PyTorch preflight.
+
+### 2026-05-22
+
+Set up git versioning (baseline commit on `main`) and scaffolded the lesson/lab structure:
+
+- `lessons/lesson_00_orientation/` and `lessons/lesson_01_next_token_prediction/` with the six standard artifacts each (`lesson.md`, `lesson.ipynb`, `exercises.md`, `key_notes.md`, `checks.md`, `teaching_notes.md`).
+- `labs/week_01_minigpt/` with `tinyseek/`, `scripts/`, `tests/`, `configs/`, `README.md`.
+- `reports/` and `runs/` placeholders.
+
+Phase 0 complete (scaffold exists). Began Phase 1 teaching: next-token prediction.
+
+Next:
+
+- finish Lesson 01 units (intuition → cross-entropy → shapes → paper loss → checks), then move to Phase 2 (minimal char-level GPT).
 
 ## Teaching-System Observations
 
