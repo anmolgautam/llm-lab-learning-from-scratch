@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Experiment outputs (keep the folder, ignore its contents)
+runs/*
+!runs/.gitkeep
+
+# Model artifacts / large binaries
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.gguf
+
+# Tokenized data shards
+*.npy
+
+# Experiment logging
+wandb/
+
+# OS / editor cruft
+.DS_Store
+.vscode/
+.idea/
