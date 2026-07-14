@@ -4,6 +4,8 @@ This document defines the roadmap for building a from-scratch LLM systems lab.
 
 The goal is not to watch tutorials or copy an existing repo. The goal is to build the core LLM stack step by step, understand the tensor mechanics, run experiments, write notes, and produce a serious engineering artifact.
 
+The *reason* for all of it — and the depth policy that decides how far each phase goes — lives in [`MISSION.md`](/Users/anmolgautam/Documents/learning/llm-lab-learning-from-scratch/MISSION.md). This file is the route; that file is the destination.
+
 ## North Star
 
 By the end of this curriculum, I should be able to explain, implement, debug, and measure the major pieces of a modern decoder-only LLM system:
@@ -80,15 +82,31 @@ Every module must produce evidence:
 
 ## Progress Rule
 
-A module is complete only when all five conditions are met:
+Progress is a level, not a boolean. See `instructor.md` for the full definition.
+
+```text
+L0 unseen -> L1 explained -> L2 implemented -> L3 verified -> L4 retained -> L5 taught back
+```
+
+A module reaches **L3 (verified)** only when all five conditions are met:
 
 1. I can explain the concept on paper.
 2. I can implement the core mechanism in code.
 3. The correctness checks pass.
-4. I have run at least one meaningful experiment.
+4. I have run at least one meaningful experiment and interpreted it.
 5. I have written a concise Markdown summary in my own words.
 
-If any condition is missing, the module is not complete.
+If any condition is missing, the module is not at L3.
+
+A module reaches **L4 (retained)** — the actual mastery bar — only when its checks, having become
+items in `review/deck.md`, are passed cold weeks later with nothing open. This can never be granted
+on the day the concept was taught: same-day recall measures fluency, not memory. A failed deck item
+demotes the module back to L3.
+
+There is no deadline here, which means nothing external will ever test whether Phase 2 survived to
+Phase 8. The deck is what replaces the exam.
+
+Advance the curriculum at L3. Do not wait at L4 — retention accumulates behind you while you move.
 
 ## Repository Shape
 
@@ -96,10 +114,23 @@ The repo separates learning artifacts from implementation artifacts.
 
 ```text
 llm-lab-learning-from-scratch/
-  curriculum.md
-  instructor.md
-  progress.md
-  pytorch_notes.md
+  MISSION.md          # why: the compass, depth policy, out of scope
+  curriculum.md       # route: this file
+  instructor.md       # method: teaching contract, mastery levels, pacing
+  progress.md         # curriculum state: where we are, at what level
+  GLOSSARY.md         # canonical language
+  RESOURCES.md        # trusted sources; grounding, not memory
+  pytorch_notes.md    # just-in-time PyTorch reference
+
+  learning-records/   # what the student actually knows (ADRs for understanding)
+    0001-*.md
+
+  review/
+    deck.md           # spaced retrieval; the only path to L4
+
+  reference/          # compressed cross-cutting cards; the layer that gets reopened
+    shapes.md
+    kv-cache-memory.md
 
   lessons/
     lesson_00_orientation/
@@ -108,6 +139,7 @@ llm-lab-learning-from-scratch/
       exercises.md
       key_notes.md
       checks.md
+      teaching_notes.md
 
   labs/
     week_01_minigpt/
@@ -123,6 +155,10 @@ llm-lab-learning-from-scratch/
   runs/
     .gitkeep
 ```
+
+`progress.md` tracks the curriculum. `learning-records/` tracks the student. They are separate files
+because a module can sit "in progress" for months over an empty one — which is exactly what happened
+before 2026-07-13.
 
 Lab folders are numbered by sequence, not calendar. `week_NN` is an ordering label only — some phases (notably Phase 9) span several weeks. Do not treat one phase as one week.
 

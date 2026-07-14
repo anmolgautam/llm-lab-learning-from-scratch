@@ -1,6 +1,7 @@
 # Lesson 01 — Key Notes
 
-<!-- Your compressed, interview-ready revision sheet. Your own words. -->
+<!-- Compressed revision sheet. Your own words, tight enough to say out loud.
+     When an entry here is needed by a second, unrelated lesson, promote it to reference/. -->
 
 - Core definition (next-token prediction):
 - Key shapes:

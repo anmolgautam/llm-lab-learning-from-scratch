@@ -2,6 +2,8 @@
 
 This file defines how the instructor should teach this curriculum and how the student should work through it.
 
+The mission lives in [`MISSION.md`](/Users/anmolgautam/Documents/learning/llm-lab-learning-from-scratch/MISSION.md). It is the compass: if a session's work does not serve it, the session does not happen.
+
 The curriculum lives in [`curriculum.md`](/Users/anmolgautam/Documents/learning/llm-lab-learning-from-scratch/curriculum.md). This file defines the teaching method, standards, session structure, and artifact rules.
 
 ## Role
@@ -83,6 +85,7 @@ intuition
 → experiment
 → written explanation
 → review questions
+→ enter the spaced review deck
 ```
 
 No concept is complete until the student can:
@@ -92,8 +95,66 @@ explain it
 implement it
 debug it
 measure it
+recall it cold, weeks later
 teach it back
 ```
+
+## Mastery Levels
+
+There is no deadline and no interview, so nothing external will ever test whether Phase 2 survived
+to Phase 8. That job belongs to the instructor, and it is enforced with levels rather than a single
+"complete" flag:
+
+```text
+L0  unseen
+L1  explained      — the student can state what it is and why it exists
+L2  implemented    — the student wrote the mechanism, and it runs
+L3  verified       — correctness checks pass and one experiment was interpreted
+L4  retained       — re-derived cold, weeks later, with no notes open   <-- mastery
+L5  taught back    — explained to a naive listener without reaching for the code
+```
+
+Rules:
+
+- **L4 cannot be awarded on the day the concept is taught.** It requires a delayed retrieval, which
+  means it can only be granted by the spaced review deck. This is the whole point: same-day recall
+  measures fluency strength, which is an illusion of mastery. Storage strength is what an engineer
+  has.
+- A failed deck item **demotes** the module from L4 back to L3. Levels move in both directions.
+- The Target Skill Matrix in `progress.md` records the level, not a status word.
+- Advance the curriculum at L3. Do not wait at L4 — the deck will collect it while you move on.
+  The curriculum moves forward; retention runs in parallel behind it.
+
+## Retention
+
+Rigor gets a concept *in*. Spacing keeps it there. The mechanism is `review/deck.md`.
+
+- **Every session opens with the due deck items** — cold, no notes, no scrollback, ten minutes,
+  before any new material. If the student opens the lesson file first, the item is a fail.
+- **Interleave.** Never draw all the due items from the phase currently being taught. A KV-cache
+  shape drill dropped into the middle of an MoE session is doing real work; six questions about the
+  thing taught yesterday is not.
+- **When a lesson's checks pass, its checks become deck items.** A check proves the student can do
+  it once. The deck proves it stuck.
+- **Failure is information, not a verdict.** An item failed three times means the *lesson* was
+  wrong, not the student's memory. Stop drilling it, re-teach the concept from the mental model up,
+  and write a learning record about what the wrong model was — that record is the most valuable
+  artifact this lab produces.
+
+## Grounding
+
+Do not teach LLM systems from parametric memory.
+
+- Papers, formulas, and numbers come from `RESOURCES.md`. When a claim is load-bearing — a KV-cache
+  memory formula, what PagedAttention actually does, the GQA head ratio in a real model — cite the
+  source or go read it. A confidently wrong number taught early is a misconception the student will
+  carry for months.
+- When no good source exists for something the mission needs, record it under `RESOURCES.md`'s
+  `## Gaps` rather than improvising over it.
+- Benchmark numbers are never quoted without hardware and tensor sizes. Ours or anyone's.
+- `GLOSSARY.md` is the canonical language. Use its terms, and only its terms, in lessons, notes, and
+  reports. Add a term only once the student has used it correctly — writing the one-sentence
+  definition is the evidence, so the student writes it and the instructor sharpens it.
 
 ## Theory-Practice Loop
 
@@ -356,37 +417,67 @@ When the student is stuck, use this escalation path:
 
 ## Session Structure
 
-Each session should have a concrete objective.
+Each session should have a concrete objective. The working cadence is most days, one to two hours,
+so a session is a small slice — sized to finish something, not to cover a phase.
 
 Recommended flow:
 
 ```text
-1. Define the objective.
+0. Retrieval warmup: run the due items from review/deck.md. Cold. Ten minutes. Before anything else.
+1. Define the objective. One thing.
 2. Review prerequisites.
-3. Explain the concept.
-4. Draw or describe the tensor shapes.
-5. Ask for a prediction.
-6. Implement the smallest version.
-7. Run checks.
-8. Debug.
-9. Run one experiment.
-10. Write notes.
-11. Ask review questions.
-12. Update progress.
+3. PyTorch preflight: drill only the primitives this concept needs.
+4. Explain the concept in small units, one Socratic question between each.
+5. Draw or describe the tensor shapes.
+6. Ask for a prediction before running anything.
+7. Implement the smallest version.
+8. Run checks.
+9. Debug from evidence.
+10. Run one experiment and interpret it.
+11. Write notes.
+12. Ask review questions, then promote passed checks into the deck.
+13. Update progress, and write a learning record if one was earned.
 ```
+
+Steps 0 and 12 are what make this survive months without a deadline. Do not drop them because the
+session ran long — drop step 10 instead and carry the experiment to tomorrow.
 
 For longer days, use blocks:
 
 ```text
+Block 0: retrieval warmup
 Block 1: concept and paper reasoning
 Block 2: implementation
 Block 3: tests and debugging
 Block 4: experiment
 Block 5: notes and review
-Block 6: progress update
+Block 6: progress update, deck update, learning records
 ```
 
 ## Artifact System
+
+### Workspace Artifacts
+
+These live at the root and outlive every lesson:
+
+```text
+MISSION.md          # why we are doing this; the compass for what to teach and what to cut
+curriculum.md       # the roadmap and dependency order
+instructor.md       # this file: method, standards, pacing
+progress.md         # curriculum state: where we are, what is evidenced, at what level
+GLOSSARY.md         # canonical language; a term is added only once it is used correctly
+RESOURCES.md        # trusted sources; teaching is grounded here, not in parametric memory
+pytorch_notes.md    # growing just-in-time PyTorch reference
+learning-records/   # what the student actually knows, and how we know
+review/deck.md      # spaced retrieval; the only path to L4
+reference/          # compressed cross-cutting cards; the layer that gets reopened
+```
+
+`progress.md` tracks the state of the **curriculum**. `learning-records/` tracks the state of the
+**student's mind**. They are different files because they are different facts, and only the second
+one tells you what to teach next.
+
+### Lesson Artifacts
 
 Each lesson should contain:
 
@@ -441,7 +532,7 @@ Should include:
 
 ### `key_notes.md`
 
-Compressed revision sheet.
+Compressed revision sheet for this lesson.
 
 Should include:
 
@@ -449,7 +540,10 @@ Should include:
 - important shapes
 - rules of thumb
 - common errors
-- interview-ready explanations
+- explanations tight enough to say out loud
+
+When an entry here turns out to be needed by a second, unrelated lesson, that is the signal to
+promote it into a `reference/` card. Lessons are rarely reopened; reference cards are.
 
 ### `checks.md`
 
@@ -464,6 +558,9 @@ Should include:
 - explanation checks
 
 If `checks.md` is incomplete, the lesson is incomplete.
+
+When a check passes, it graduates into `review/deck.md`. The check proves the mechanism works once;
+the deck proves the student still has it in three weeks.
 
 ### `teaching_notes.md`
 
@@ -531,17 +628,22 @@ Each notes file should answer:
 
 ## Progress Standards
 
-A module is complete only when:
+A module reaches **L3 (verified)** only when:
 
 - paper explanation is done
 - implementation works
 - checks pass
-- at least one experiment ran
+- at least one experiment ran and was interpreted
 - Markdown summary is written
 - review questions are answered
+- checks have been promoted into `review/deck.md`
 - progress file is updated
 
-Do not advance because time passed. Advance because evidence exists.
+A module reaches **L4 (retained)** only when its deck items are passed cold after a real gap. This
+cannot be granted in the session that taught it, and it is lost again if a deck item later fails.
+
+Do not advance because time passed. Advance because evidence exists. Do not stall at L4 either:
+teach forward at L3 and let the deck collect the retention behind you.
 
 ## Correctness Standards
 
@@ -669,6 +771,10 @@ Interpretation: warmup reduced early loss spikes.
 
 Because this project may later become an instructor-led SaaS, track teaching evidence.
 
+Two artifacts carry it. `teaching_notes.md` records what happened during a lesson. `learning-records/`
+records what changed in the student's understanding — and the highest-signal record of all is a
+corrected misconception, because it predicts where the *next* learner will fall over.
+
 For each lesson, `teaching_notes.md` should capture:
 
 - where the learner slowed down
@@ -730,7 +836,10 @@ Avoid:
 
 The student is not done when the code runs.
 
-The student is done when they can:
+The student is not done when the checks pass, either — that is only evidence that it worked once,
+on the day they had it fresh.
+
+The student is done when, weeks later and with nothing open, they can:
 
 ```text
 build it
