@@ -75,17 +75,36 @@ point at the exact line → partial code → full code, and only when being bloc
 educational. It scaffolds structure, tests, and TODOs. You write the mechanisms, the notes, and the
 explanations.
 
-## Using it
+## Starting your own run
 
 Requires [Claude Code](https://claude.com/claude-code).
 
+This repo contains **my** learning state — my mission, my progress, my records. Inheriting it would
+be worse than useless: a table that already says "L3" for a phase you have never touched will lie to
+you for months. So the first thing you do is wipe it.
+
 ```bash
-git clone https://github.com/anmolgautam/llm-lab-learning-from-scratch
-cd llm-lab-learning-from-scratch
-claude
+git clone https://github.com/anmolgautam/llm-lab-learning-from-scratch my-llm-lab
+cd my-llm-lab
+rm -rf .git && git init          # your history, not mine
+
+./scripts/init-workspace.sh      # every module back to L0
 ```
 
+The script restores `MISSION.md`, `progress.md`, `review/deck.md`, `GLOSSARY.md`, and
+`pytorch_notes.md` from `templates/`, deletes my learning records and reports, and keeps the parts
+that are actually reusable — `instructor.md`, `curriculum.md`, `RESOURCES.md`, the lesson skeletons,
+and the skill. It refuses to run on a dirty tree and asks for confirmation, because it deletes files.
+
 Then:
+
+```bash
+claude
+> /llm-lab init     # interviews you for the mission, writes MISSION.md
+> /llm-lab          # first session
+```
+
+### Commands
 
 | Command | Does |
 | --- | --- |
@@ -93,25 +112,32 @@ Then:
 | `/llm-lab review` | Retrieval warmup only. Ten minutes |
 | `/llm-lab close` | Bookkeeping: promote passed checks into the deck, update levels, write records |
 | `/llm-lab status` | Where you are, what's due, what's blocked |
+| `/llm-lab init` | New workspace: interview for the mission, write `MISSION.md` |
 
 The skill lives in `.claude/skills/llm-lab/` and is deliberately thin — it *sequences* a session and
 nothing more. The rules live in `instructor.md`, because two copies of a teaching contract drift
 apart within a month.
 
-### Adapting it to your own topic
+**`/llm-lab init` will interrogate you**, and it is supposed to. It pushes past "I want to understand
+LLMs" until you produce a mission with a finish line, a depth policy, and an out-of-scope list. A
+curriculum without those is an infinite reading list.
 
-The teaching machinery is not specific to LLMs. To reuse it, keep:
+### A different subject entirely
 
-- `instructor.md` — mastery levels, micro-pacing, the escalation ladder, grounding rules
-- `review/deck.md` — the deck format and intervals
-- `learning-records/README.md` — when a record is earned
-- `GLOSSARY.md`, `RESOURCES.md` — the format and the cite-don't-recall rule
-- `.claude/skills/llm-lab/SKILL.md` — the session protocol
+The machinery is not LLM-specific — the mastery levels, the deck, the records, the grounding rule,
+and the escalation ladder work for anything hard.
 
-and replace `MISSION.md`, `curriculum.md`, `progress.md`, and `lessons/` with your subject.
+```bash
+./scripts/init-workspace.sh --new-subject
+```
 
-Then reset the state honestly: **empty deck, empty glossary, no learning records, everything at L0.**
-Starting a learning system with a filled-in progress table is lying to yourself on day one.
+That additionally blanks `curriculum.md`, `RESOURCES.md`, `lessons/`, and `labs/`. You write the
+phases in dependency order, and you replace the **Correctness Standards** section of `instructor.md`
+— it encodes what counts as proof in LLM systems (future-token leakage tests, frozen reference
+models, warmup-and-sync before timing claims). Every other section of that file is subject-agnostic.
+
+Whatever you do: **do not hand-edit `progress.md` to look further along.** It is the one file whose
+entire value is being honest.
 
 ## Repository
 

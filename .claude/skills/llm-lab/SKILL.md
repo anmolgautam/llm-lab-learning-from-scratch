@@ -23,6 +23,37 @@ two conflict, `instructor.md` wins.
 | `/llm-lab review` | Retrieval warmup only. Ten minutes, then stop |
 | `/llm-lab close` | Bookkeeping only: promote checks, update progress, write records |
 | `/llm-lab status` | Where we are, what is due, what is blocked. No teaching |
+| `/llm-lab init` | New workspace: interview for the mission, then write `MISSION.md` |
+
+## Init mode
+
+Run when `MISSION.md` is still the unwritten template — i.e. someone has forked this lab and is
+starting their own run.
+
+**First, check the workspace is actually clean.** If `progress.md` shows levels above L0, or
+`learning-records/` contains records, or the deck has items, then this workspace still holds the
+previous owner's state. **Stop and tell them to run `./scripts/init-workspace.sh`** (add
+`--new-subject` if they are not learning LLM systems). Do not delete their files yourself — that
+script has confirmation prompts and a dirty-tree guard for a reason.
+
+Once the state is clean, **interview them for the mission**. Do not write `MISSION.md` from a
+one-line answer; the whole system hangs off this file.
+
+- Ask why they want this. Then **push past the first answer** — it will be abstract. "To understand
+  LLMs" is not a mission: it has no finish line and no way to justify saying no to anything. Keep
+  asking until you have a concrete outcome ("be hired as X", "ship Y that my team uses").
+- Ask what success looks like as *observable things they can do*, not things they will understand.
+- Ask about cadence and hardware honestly. The system must survive their real schedule, not their
+  idealized one.
+- Ask what they already know, and how deeply. Write it as the first learning record — it sets the
+  floor, and it stops you re-teaching things they have.
+- Force a **depth policy**: which topics are deep, which are working knowledge, which are
+  shallow-but-real. Without it, a long skill list is an infinite curriculum.
+- Force an **out of scope** list. What they are deliberately not chasing right now.
+
+Then write `MISSION.md`, seed `progress.md`'s module table from `curriculum.md` (everything at L0),
+and write the prior-knowledge learning record. Do not teach in the same turn — end by telling them
+to run `/llm-lab`.
 
 ## Step 0 — Load context
 
